@@ -5,11 +5,12 @@ import (
 	"gin-gonic-api/app/domain/dao"
 	"gin-gonic-api/app/pkg"
 	"gin-gonic-api/app/repository"
+	"net/http"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/crypto/bcrypt"
-	"net/http"
-	"strconv"
 )
 
 type UserService interface {

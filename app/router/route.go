@@ -2,6 +2,7 @@ package router
 
 import (
 	"gin-gonic-api/config"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,6 +20,15 @@ func Init(init *config.Initialization) *gin.Engine {
 		user.GET("/:userID", init.UserCtrl.GetUserById)
 		user.PUT("/:userID", init.UserCtrl.UpdateUserData)
 		user.DELETE("/:userID", init.UserCtrl.DeleteUser)
+	}
+	{
+		project := api.Group("/project")
+		project.GET("", init.ProjectCtrl.GetAllProjectData)
+	}
+
+	{
+		model := api.Group("/model")
+		model.GET("", init.ModelCtrl.GetAllModelData)
 	}
 
 	return router

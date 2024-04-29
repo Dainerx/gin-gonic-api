@@ -21,7 +21,20 @@ func Init() *Initialization {
 	userServiceImpl := service.UserServiceInit(userRepositoryImpl)
 	userControllerImpl := controller.UserControllerInit(userServiceImpl)
 	roleRepositoryImpl := repository.RoleRepositoryInit(gormDB)
-	initialization := NewInitialization(userRepositoryImpl, userServiceImpl, userControllerImpl, roleRepositoryImpl)
+
+	projectRepositoryImpl := repository.ProjectRepositoryInit(gormDB)
+	projectServiceImpl := service.ProjectServiceInit(projectRepositoryImpl)
+	projectControllerImpl := controller.ProjectControllerInit(projectServiceImpl)
+	slideRepositoryImpl := repository.SlideRepositoryInit(gormDB)
+
+	modelRepositoryImpl := repository.ModelRepositoryInit(gormDB)
+	modelServiceImpl := service.ModelServiceInit(modelRepositoryImpl)
+	modelControllerImpl := controller.ModelControllerInit(modelServiceImpl)
+	
+	initialization := NewInitialization(userRepositoryImpl, userServiceImpl, userControllerImpl, roleRepositoryImpl,
+		projectRepositoryImpl, projectServiceImpl, projectControllerImpl, slideRepositoryImpl,
+		modelRepositoryImpl, modelServiceImpl, modelControllerImpl,
+	)
 	return initialization
 }
 
@@ -31,8 +44,23 @@ var db = wire.NewSet(ConnectToDB)
 
 var userServiceSet = wire.NewSet(service.UserServiceInit, wire.Bind(new(service.UserService), new(*service.UserServiceImpl)))
 
-var userRepoSet = wire.NewSet(repository.UserRepositoryInit, wire.Bind(new(repository.UserRepository), new(*repository.UserRepositoryImpl)))
+var userRepoSet = wire.NewSet(repository.UserRepositoryInit, wire.Bind(new(repository.ProjectRepository), new(*repository.ProjectRepositoryImpl)))
 
 var userCtrlSet = wire.NewSet(controller.UserControllerInit, wire.Bind(new(controller.UserController), new(*controller.UserControllerImpl)))
 
 var roleRepoSet = wire.NewSet(repository.RoleRepositoryInit, wire.Bind(new(repository.RoleRepository), new(*repository.RoleRepositoryImpl)))
+
+var projectRepoSet = wire.NewSet(repository.ProjectRepositoryInit, wire.Bind(new(repository.ProjectRepository), new(*repository.ProjectRepositoryImpl)))
+
+var projectServiceSet = wire.NewSet(service.ProjectServiceInit, wire.Bind(new(service.ProjectService), new(*service.ProjectServiceImpl)))
+
+var projectCtrlSet = wire.NewSet(controller.ProjectControllerInit, wire.Bind(new(controller.ProjectController), new(*controller.ModelControllerImpl)))
+
+var slideRepoSet = wire.NewSet(repository.SlideRepositoryInit, wire.Bind(new(repository.SlideRepository), new(*repository.SlideRepositoryImpl)))
+
+var modelRepoSet = wire.NewSet(repository.ModelRepositoryInit, wire.Bind(new(repository.ModelRepository), new(*repository.ModelRepositoryImpl)))
+
+var modelServiceSet = wire.NewSet(service.ModelServiceInit, wire.Bind(new(service.ModelService), new(*service.ModelServiceImpl)))
+
+var modelCtrlSet = wire.NewSet(controller.ModelControllerInit, wire.Bind(new(controller.ModelController), new(*controller.ModelControllerImpl)))
+

@@ -2,6 +2,7 @@ package repository
 
 import (
 	"gin-gonic-api/app/domain/dao"
+
 	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
